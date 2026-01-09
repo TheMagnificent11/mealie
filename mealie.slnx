@@ -8,5 +8,5 @@
     <File Path="docker-compose.yml" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="src/Mealie.AppHost/Mealie.AppHost.csproj" Id="ff8f83c2-3732-4751-a349-3a894eff62fb" />
+  <Project Path="src/Mealie.AppHost/Mealie.AppHost.csproj" />
 </Solution>

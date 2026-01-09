@@ -4,4 +4,4 @@ applyTo: "**/*"
 
 # Overview
 
-Lewee is an opinionated set of packages to assist with setting up a domain-driven design architecture within ASP.NET. This repository contains both the Lewee framework packages and a sample restaurant management application demonstrating their usage.
+This repository provides a .NET Aspire orchestration for [Mealie](https://mealie.io/), a self-hosted recipe manager and meal planner, using PostgreSQL as the data store.

@@ -19,9 +19,9 @@ The following instruction files are available in the `.github/instructions/` dir
 | [validation-workflows.instructions.md](instructions/validation-workflows.instructions.md) | Validation workflows for changes | C# source files |
 | [repository-structure.instructions.md](instructions/repository-structure.instructions.md) | Repository structure and organization | All files |
 | [troubleshooting.instructions.md](instructions/troubleshooting.instructions.md) | Troubleshooting common issues | All files |
-| [development-focus.instructions.md](instructions/development-focus.instructions.md) | Development focus areas and contribution guidelines | C# source files |
 | [decision-making.instructions.md](instructions/decision-making.instructions.md) | Decision-making guide for development choices | All files |
 | [technology-stack.instructions.md](instructions/technology-stack.instructions.md) | Technology stack reference | All files |
+| [blazor.instructions.md](instructions/blazor.instructions.md) | Blazor component development guidelines | Razor and Razor code-behind files |
 
 ## Quick Reference
 

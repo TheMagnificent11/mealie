@@ -1,11 +1,14 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
+builder.AddAzureContainerAppEnvironment("mealie");
+
 var postgres = builder.AddAzurePostgresFlexibleServer("postgres")
     .WithPasswordAuthentication()
     .RunAsContainer(container =>
     {
         container.WithImage("postgres", "17")
-            .WithLifetime(ContainerLifetime.Persistent);
+            .WithLifetime(ContainerLifetime.Persistent)
+            .WithDataVolume();
     });
 
 var mealieDb = postgres.AddDatabase("mealiedb");

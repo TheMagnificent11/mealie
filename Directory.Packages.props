@@ -4,6 +4,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup Label="Aspire">
+    <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.1.0" />
     <PackageVersion Include="Aspire.Hosting.Azure.PostgreSQL" Version="13.1.0" />
   </ItemGroup>
   <ItemGroup Label="Analyzers">

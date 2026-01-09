@@ -9,3 +9,18 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    # Ignore major version updates - only allow minor and patch updates
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # Group updates based on ItemGroup labels in Directory.Packages.props
+    groups:
+      aspire:
+        patterns:
+          - "Aspire.*"
+      analyzers:
+        patterns:
+          - "Meziantou.Analyzer"
+          - "Microsoft.VisualStudio.Threading.Analyzers"
+          - "SonarAnalyzer.CSharp"
+          - "StyleCop.Analyzers"

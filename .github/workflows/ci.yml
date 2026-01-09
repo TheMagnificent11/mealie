@@ -1,0 +1,13 @@
+name: CI Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ develop, main ]
+
+permissions:
+  contents: read
+
+jobs:
+  buildAndTest:
+    uses: ./.github/workflows/build-and-test.yml

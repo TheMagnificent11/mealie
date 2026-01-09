@@ -152,5 +152,13 @@ dotnet_diagnostic.CA2254.severity = warning        # Template should be a static
 dotnet_diagnostic.CS8019.severity = warning        # Unnecessary using directive
 dotnet_diagnostic.CS8618.severity = none           # Non-nullable field must contain a non-null value when exiting constructor
 
+# Meziantou.Analyzer
+dotnet_diagnostic.MA0004.severity = none           # Use Task.ConfigureAwait
+dotnet_diagnostic.MA0048.severity = none           # File name must match type name
+
+# StyleCop
+dotnet_diagnostic.SA0001.severity = none           # XML comment analysis is disabled due to project configuration
+dotnet_diagnostic.SA1633.severity = none           # File should have header
+
 # IDE Analyzers
 dotnet_diagnostic.IDE0290.severity = none          # Use primary constructor

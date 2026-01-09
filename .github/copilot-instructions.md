@@ -1,0 +1,48 @@
+# Mealie Aspire Development Instructions
+
+This file provides an overview and links to detailed Copilot instructions for different aspects of development in this repository.
+
+**Important:** Please keep this file and the instruction files in the `.github/instructions/` directory up-to-date as the codebase evolves. When making changes to the repository structure, build process, coding standards, or other documented aspects, update the relevant instruction files to ensure they remain accurate and helpful.
+
+## Instruction Files
+
+The following instruction files are available in the `.github/instructions/` directory. Each file contains detailed guidance for specific areas:
+
+| Instruction File | Description | Applies To |
+|------------------|-------------|------------|
+| [overview.instructions.md](instructions/overview.instructions.md) | Project overview and introduction | All files |
+| [how-to-use.instructions.md](instructions/how-to-use.instructions.md) | How to use these instructions effectively | All files |
+| [visual-studio-solution.instructions.md](instructions/visual-studio-solution.instructions.md) | Visual Studio solution configuration | Solution and project files |
+| [environment-setup.instructions.md](instructions/environment-setup.instructions.md) | Environment prerequisites and setup | All files |
+| [build-and-test.instructions.md](instructions/build-and-test.instructions.md) | Build and test commands reference | C# source files |
+| [code-quality.instructions.md](instructions/code-quality.instructions.md) | Code quality standards and enforcement | C# source files |
+| [validation-workflows.instructions.md](instructions/validation-workflows.instructions.md) | Validation workflows for changes | C# source files |
+| [repository-structure.instructions.md](instructions/repository-structure.instructions.md) | Repository structure and organization | All files |
+| [troubleshooting.instructions.md](instructions/troubleshooting.instructions.md) | Troubleshooting common issues | All files |
+| [decision-making.instructions.md](instructions/decision-making.instructions.md) | Decision-making guide for development choices | All files |
+| [technology-stack.instructions.md](instructions/technology-stack.instructions.md) | Technology stack reference | All files |
+
+## Quick Reference
+
+### Priority Order
+1. First, consult these instructions for repository-specific guidance
+2. Then, use search or bash commands only when you encounter unexpected information
+
+### Success Criteria
+Your changes should:
+- Build without errors or warnings
+- Pass all existing tests
+- Follow the established coding patterns
+- Be minimal and focused
+
+### Key Commands
+```bash
+# Build
+dotnet build --configuration Release --nologo
+
+# Test
+dotnet test --configuration Release --no-build --nologo
+
+# Format
+dotnet format
+```

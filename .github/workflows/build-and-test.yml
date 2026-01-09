@@ -1,0 +1,72 @@
+on:
+  workflow_call:
+    inputs:
+      is-pr:
+        required: false
+        type: boolean
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  buildAndTest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.*
+
+      - name: Install Aspire Workload
+        run: dotnet workload install aspire
+
+      - name: Install dotnet-coverage tool
+        run: dotnet tool install --global dotnet-coverage
+
+      - name: Install ReportGenerator
+        if: ${{ inputs.is-pr == true }}
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+      - name: Install HTTPS development certificate
+        run: dotnet dev-certs https --trust
+
+      - name: Install Dependencies
+        run: dotnet restore --nologo
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore --nologo
+
+      - name: Test
+        run: dotnet-coverage collect "dotnet test --configuration Release --no-build --nologo" --settings coverage.xml -f cobertura -o ./coverage/coverage.cobertura.xml
+
+      - name: Generate Coverage Report
+        if: ${{ inputs.is-pr == true }}
+        run: |
+          reportgenerator \
+            -reports:"coverage/coverage.cobertura.xml" \
+            -targetdir:"coverage-report" \
+            -reporttypes:"MarkdownSummaryGithub;Cobertura" \
+            -assemblyfilters:"-Fluxor*" \
+            -verbosity:"Warning"
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: ${{ inputs.is-pr == true && github.actor != 'dependabot[bot]' }}
+        with:
+          recreate: true
+          path: coverage-report/SummaryGithub.md
+
+      - name: Check Diff Coverage (90% threshold)
+        if: ${{ inputs.is-pr == true && github.actor != 'dependabot[bot]' }}
+        uses: ./.github/actions/diff-coverage-check
+        with:
+          coverage-file: coverage/coverage.cobertura.xml
+          threshold: 90
+          base-sha: ${{ github.event.pull_request.base.sha }}
+          head-sha: ${{ github.sha }}
+

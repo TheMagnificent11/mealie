@@ -21,7 +21,6 @@ The following instruction files are available in the `.github/instructions/` dir
 | [troubleshooting.instructions.md](instructions/troubleshooting.instructions.md) | Troubleshooting common issues | All files |
 | [decision-making.instructions.md](instructions/decision-making.instructions.md) | Decision-making guide for development choices | All files |
 | [technology-stack.instructions.md](instructions/technology-stack.instructions.md) | Technology stack reference | All files |
-| [blazor.instructions.md](instructions/blazor.instructions.md) | Blazor component development guidelines | Razor and Razor code-behind files |
 
 ## Quick Reference
 

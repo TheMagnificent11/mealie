@@ -36,6 +36,10 @@ Build the solution:
 dotnet build --configuration Release --nologo
 ```
 
+## Deployment
+
+For information on deploying this application to Azure, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ## Structure
 
 - `src/` - Source projects

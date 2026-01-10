@@ -12,27 +12,22 @@ var postgres = builder.AddAzurePostgresFlexibleServer("postgres")
     });
 
 var mealieDb = postgres.AddDatabase("mealiedb");
-var pgUserName = postgres.Resource.UserName;
-var pgPassword = postgres.Resource.Password;
 
 #pragma warning disable CS8604 // Possible null reference argument.
 builder.AddContainer("mealie-app", "ghcr.io/mealie-recipes/mealie", "v3.9.2")
-    .WithHttpEndpoint(port: 9925, targetPort: 9000, name: "http")
+    .WithHttpEndpoint(port: 80, targetPort: 9000, name: "http")
     .WithEnvironment("ALLOW_SIGNUP", "false")
     .WithEnvironment("PUID", "1000")
     .WithEnvironment("PGID", "1000")
     .WithEnvironment("TZ", "Australia/Brisbane")
     .WithEnvironment("DB_ENGINE", "postgres")
-    .WithEnvironment("POSTGRES_USER", pgUserName)
-    .WithEnvironment("POSTGRES_PASSWORD", pgPassword)
-    .WithEnvironment(context =>
-    {
-        var endpoint = postgres.GetEndpoint("tcp");
-        context.EnvironmentVariables["POSTGRES_SERVER"] = endpoint.Property(EndpointProperty.Host);
-        context.EnvironmentVariables["POSTGRES_PORT"] = endpoint.Property(EndpointProperty.Port);
-    })
+    .WithEnvironment("POSTGRES_USER", postgres.Resource.UserName)
+    .WithEnvironment("POSTGRES_PASSWORD", postgres.Resource.Password)
+    .WithEnvironment("POSTGRES_SERVER", postgres.Resource.Host)
+    .WithEnvironment("POSTGRES_PORT", postgres.Resource.Port)
     .WithEnvironment("POSTGRES_DB", "mealiedb")
     .WithVolume("mealie-data", "/app/data")
+    .WithReference(mealieDb)
     .WaitFor(mealieDb);
 #pragma warning restore CS8604 // Possible null reference argument.
 

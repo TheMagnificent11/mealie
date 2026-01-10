@@ -1,7 +1,7 @@
 name: Continuous Deployment
 
-# `azure/login@v1`
-#   See: https://github.com/azure/login/tree/v1/
+# `azure/login@v2`
+#   See: https://github.com/azure/login/tree/v2/
 #
 #   This workflow uses OpenID Connect (OIDC) federated identity credentials for authentication.
 #   See DEPLOYMENT.md for detailed Azure App Registration configuration requirements.
@@ -59,8 +59,9 @@ jobs:
         run: dotnet workload install aspire
 
       - name: Azure Login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
+          auth-type: IDENTITY
           tenant-id: ${{ secrets.AZURE__TENANTID }}
           client-id: ${{ secrets.AZURE__CLIENTID }}
           subscription-id: ${{ secrets.AZURE__SUBSCRIPTIONID }}

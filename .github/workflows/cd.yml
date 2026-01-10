@@ -2,6 +2,7 @@ name: CD
 
 # Ensure that the following repository secrets are set in the `Actions` section
 #
+# AZURE_CREDENTIALS (see https://github.com/azure/login/tree/v1/?tab=readme-ov-file#creds)
 # AZURE__SUBSCRIPTIONID
 # AZURE__RESOURCEGROUP
 # AZURE__LOCATION
@@ -31,4 +32,8 @@ jobs:
         run: dotnet workload install aspire
 
       - name: Deploy Application
-        run: aspire deploy --debug
+        run: aspire deploy \
+            --environment Production \
+            --clear-cache \
+            --include-exception-details \
+            --debug

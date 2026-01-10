@@ -6,9 +6,9 @@ var postgres = builder.AddAzurePostgresFlexibleServer("postgres")
     .WithPasswordAuthentication()
     .RunAsContainer(container =>
     {
-        container.WithImage("postgres", "17")
+        container
             .WithLifetime(ContainerLifetime.Persistent)
-            .WithDataVolume();
+            .WithDataVolume(isReadOnly: false);
     });
 
 var mealieDb = postgres.AddDatabase("mealiedb");

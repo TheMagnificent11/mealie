@@ -14,7 +14,7 @@ name: Continuous Deployment
 #     AZURE__TENANTID (Azure tenant ID)
 #     AZURE__SUBSCRIPTIONID (Azure subscription ID)
 #
-#   Note: AZURE__CLIENTSECRET is NOT used - this workflow uses OIDC instead of client secrets
+#   Note: AZURE__CLIENTSECRET is NOT used - this workflow uses SERVICE_PRINCIPAL (OIDC) instead of client secrets
 
 # `aspire deploy`
 #   See: https://aspire.dev/reference/cli/commands/aspire-deploy/ & https://aspire.dev/get-started/deploy-first-app/?lang=csharp#deploy-your-app
@@ -61,7 +61,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          auth-type: OIDC
+          auth-type: SERVICE_PRINCIPAL
           tenant-id: ${{ secrets.AZURE__TENANTID }}
           client-id: ${{ secrets.AZURE__CLIENTID }}
           subscription-id: ${{ secrets.AZURE__SUBSCRIPTIONID }}

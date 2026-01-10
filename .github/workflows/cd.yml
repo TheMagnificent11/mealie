@@ -1,5 +1,11 @@
 name: CD
 
+# Ensure that the following repository secrets are set in the `Actions` section
+#
+# AZURE__SUBSCRIPTIONID
+# AZURE__RESOURCEGROUP
+# AZURE__LOCATION
+
 on:
   workflow_dispatch:
   push:

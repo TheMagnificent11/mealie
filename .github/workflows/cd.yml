@@ -1,0 +1,69 @@
+name: Continuous Deployment
+
+# `azure/login@v1`
+#   See: https://github.com/azure/login/tree/v1/
+#
+#   Repository Action Secrets
+#     AZURE__CLIENTID (Microsoft Entra ID App Registration must have sufficient permissions to deploy resources to the Azure Subscription)
+#     AZURE__CLIENTSECRET (automatically read by action, no need to pass as parameter)
+#     AZURE__TENANTID
+#     AZURE__SUBSCRIPTIONID
+
+# `aspire deploy`
+#   See: https://aspire.dev/reference/cli/commands/aspire-deploy/ & https://aspire.dev/get-started/deploy-first-app/?lang=csharp#deploy-your-app
+#
+#   Ensure `./aspire/settings.json` has `appHostPath` set to Aspire App Host csproj-file to use for deployment
+#
+#   Repository Action Secrets (all automatically read from secrets by Aspire CLI, no need to pass as parameters)
+#     AZURE__SUBSCRIPTIONID
+#     AZURE__RESOURCEGROUP
+#     AZURE__LOCATION
+
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Continuous Integration"]
+    types:
+      - completed
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.*
+
+      - name: Install Aspire Workload
+        run: dotnet workload install aspire
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          tenant-id: ${{ secrets.AZURE__TENANTID }}
+          client-id: ${{ secrets.AZURE__CLIENTID }}
+          subscription-id: ${{ secrets.AZURE__SUBSCRIPTIONID }}
+
+      - name: Build
+        run: dotnet build --configuration Release --nologo
+
+      - name: Deploy Application
+        run: |
+          aspire deploy \
+            --environment Production \
+            --clear-cache \
+            --include-exception-details

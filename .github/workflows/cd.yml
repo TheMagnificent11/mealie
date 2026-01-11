@@ -21,7 +21,7 @@ name: Continuous Deployment
 #
 #   Ensure `.aspire/settings.json` has `appHostPath` set to Aspire App Host csproj file to use for deployment
 #
-#   Repository Action Secrets (automatically read from secrets by Aspire CLI):
+#   Repository Action Secrets (passed as environment variables to Aspire CLI):
 #     AZURE__SUBSCRIPTIONID (Azure subscription ID)
 #     AZURE__RESOURCEGROUP (Azure resource group name for deployment)
 #     AZURE__LOCATION (Azure region, e.g., eastus, westeurope)
@@ -81,3 +81,7 @@ jobs:
             --environment Production \
             --clear-cache \
             --include-exception-details
+        env:
+          Azure__SubscriptionId: ${{ secrets.AZURE__SUBSCRIPTIONID }}
+          Azure__Location: ${{ secrets.AZURE__LOCATION }}
+          Azure__ResourceGroup: ${{ secrets.AZURE__RESOURCEGROUP }}

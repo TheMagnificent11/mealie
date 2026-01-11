@@ -88,11 +88,13 @@ The CD workflow (`.github/workflows/cd.yml`) is triggered:
 
 The `aspire deploy` command reads configuration from environment variables and the `.aspire/settings.json` file:
 
-- **Environment variables** (from GitHub secrets):
-  - `AZURE__SUBSCRIPTIONID`
-  - `AZURE__RESOURCEGROUP`
-  - `AZURE__LOCATION`
+- **Environment variables** (passed from GitHub secrets):
+  - `Azure__SubscriptionId` (set to `AZURE__SUBSCRIPTIONID`)
+  - `Azure__ResourceGroup` (set to `AZURE__RESOURCEGROUP`)
+  - `Azure__Location` (set to `AZURE__LOCATION`)
 - **App Host path**: Configured in `.aspire/settings.json`
+
+Note: The workflow passes these values as environment variables to the `aspire deploy` command using the `env:` section in the workflow step.
 
 ## Troubleshooting
 
